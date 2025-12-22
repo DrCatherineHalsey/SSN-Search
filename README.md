@@ -38,8 +38,23 @@ This Python script provides an efficient way to search through large datasets of
 
 ## Note
 
-- The script assumes that the data files are located in the '/Path/To/SSN/Files' directory. Modify the `DOCUMENT_PATH` variable if your files are located elsewhere.
+- The script no longer assumes files are located in '/Path/To/SSN/Files'. By default the script looks for files in the `./data` directory. You can modify the `DOCUMENT_PATH` variable in the script, set the `SSN_DOCUMENT_PATH` environment variable, or pass a different path with the `--path` (`-p`) option. Files must start with `part_`.
 - The script is designed to work with CSV files where each line represents a person's information in a specific format. Ensure your data files match this expected format.
+
+- If SSNs appear in a different field position in your CSV, use the `--ssn-index` option (0-based) to point to the correct field — default is `19`.
+- For troubleshooting, use `--debug` to print the raw parsed fields and the SSN extraction for each match.
+
+## Example
+
+- Run with the default path in `./data`:
+
+  python optimized_search.py "ryan|biggers|1983" -m 5
+
+- Override the data path or SSN field index:
+
+  python optimized_search.py "ann|smith|1990" -p ./my_files --ssn-index 10 --debug
+
+These examples show how to override the data location and SSN index for cases where the SSN is stored in a different CSV field.
 
 ## Performance
 
